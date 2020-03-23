@@ -1,13 +1,19 @@
 <template>
   <!-- 欢迎页 -->
   <div class="helloPage">
+    <BreadCrumb/>
   WELCOME!
   </div>
 </template>
 
 <script>
+import BreadCrumb from '@/components/BreadCrumb.vue'
+
 export default {
-  name: 'HelloPage'
+  name: 'HelloPage',
+  components: {
+    BreadCrumb
+  }
 }
 </script>
 

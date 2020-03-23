@@ -1,5 +1,6 @@
 <template>
   <div class="userList">
+    <BreadCrumb/>
     <!-- 新增和搜索行 -->
     <div>
       <el-button type="primary" @click="addUser">新增用户</el-button>
@@ -74,11 +75,15 @@
 </template>
 
 <script>
+import BreadCrumb from '@/components/BreadCrumb.vue'
 import { apiUserList, apiAddUser, apiDelUser } from '@/request/api'
 // import { mapMutations } from 'vuex'
 
 export default {
   name: 'UserList',
+  components: {
+    BreadCrumb
+  },
   data () {
     return {
       userData: [],

@@ -1,5 +1,6 @@
 <template>
   <div class="myInfo">
+    <BreadCrumb/>
     <!-- 更新除id外的所有信息的功能待完善 -->
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="用户名">
@@ -41,12 +42,16 @@
 </template>
 
 <script>
+import BreadCrumb from '@/components/BreadCrumb.vue'
 import { apiPersonInfo, apiModify } from '@/utils/request/api'
 import { getCookie } from '@/utils/cookie'
 // import { mapMutations } from 'vuex'
 
 export default {
   name: 'MyInfo',
+  components: {
+    BreadCrumb
+  },
   data () {
     return {
       form: {

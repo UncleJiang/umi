@@ -30,19 +30,28 @@ const routes = [
         // 欢迎页
         path: '/index',
         name: 'Index',
-        component: HelloPage
+        component: HelloPage,
+        meta: {
+          // breadNumber: 2
+        }
       },
       {
         // 用户列表页
         path: '/userList',
         name: 'UserList',
-        component: UserList
+        component: UserList,
+        meta: {
+          // breadNumber: 2
+        }
       },
       {
         // 个人信息页
         path: '/myInfo',
         name: 'MyInfo',
-        component: MyInfo
+        component: MyInfo,
+        meta: {
+          // breadNumber: 2
+        }
       },
       {
         path: '*',
