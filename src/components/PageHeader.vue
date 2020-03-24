@@ -1,7 +1,6 @@
 <template>
   <div class="pageHeader">
     <el-menu
-      :default-active="activeIndex"
       class="el-menu-demo"
       mode="horizontal"
       @select="handleSelect"
@@ -36,6 +35,9 @@ export default {
   name: 'PageHeader',
   methods: {
     // ...mapMutations(['changeLogin', 'handleUserInfo']),
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
+    },
     logout () {
       // 清除localStorage和vuex中的token与用户登录信息
       /*

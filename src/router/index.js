@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { getCookie } from '../utils/cookie'
+// import { getCookie } from '../utils/cookie'
 // import store from '../store'
 
 import Home from '../views/Home.vue'
@@ -12,10 +12,12 @@ import MyInfo from '../views/MyInfo.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  /*
   {
     path: '/',
     redirect: '/login'
   },
+  */
   {
     path: '/login',
     name: 'login',
@@ -32,7 +34,7 @@ const routes = [
         name: 'Index',
         component: HelloPage,
         meta: {
-          // breadNumber: 2
+          title: '欢迎页'
         }
       },
       {
@@ -41,7 +43,7 @@ const routes = [
         name: 'UserList',
         component: UserList,
         meta: {
-          // breadNumber: 2
+          title: '用户列表'
         }
       },
       {
@@ -50,7 +52,7 @@ const routes = [
         name: 'MyInfo',
         component: MyInfo,
         meta: {
-          // breadNumber: 2
+          title: '个人信息'
         }
       },
       {
@@ -69,6 +71,7 @@ const router = new VueRouter({
 
 // 路由拦截  判断用户是否登录
 // 判断本地是否存在用户信息是否存在 ？ 进行正常操作 ：重定向到登录页
+/*
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') {
     next()
@@ -83,5 +86,5 @@ router.beforeEach((to, from, next) => {
     }
   }
 })
-
+*/
 export default router

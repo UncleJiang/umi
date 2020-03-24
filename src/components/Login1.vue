@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { isvalidName, isvalidPass } from '@/validate'
+import { isvalidName, isvalidPass } from '@/utils/validate'
 import { apiLogin1 } from '@/utils/request/api'
 // import { mapMutations } from 'vuex'
 

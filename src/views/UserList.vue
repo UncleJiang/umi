@@ -76,7 +76,7 @@
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue'
-import { apiUserList, apiAddUser, apiDelUser } from '@/request/api'
+import { apiUserList, apiAddUser, apiDelUser } from '@/utils/request/api'
 // import { mapMutations } from 'vuex'
 
 export default {

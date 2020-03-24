@@ -6,11 +6,11 @@
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <!--面包屑列表-->
       <el-breadcrumb-item
-        v-for='(item,index) in breadList'
-        :key='index'
+        v-for='item in breadList'
+        :key='item.path'
         @click.native="breadcrumbClick(item)"
-        v-if='item.name' style="cursor: pointer">
-        {{item.name}}
+        style="cursor: pointer">
+        {{item.meta.title}}
       </el-breadcrumb-item>
     </el-breadcrumb>
   </div>
@@ -19,15 +19,29 @@
 <script>
 export default {
   name: 'BreadCrumb',
+  data () {
+    return {
+      breadList: []
+    }
+  },
   watch: {
     // 监听路由的变化
     $route () {
       this.getBreadcrumb()
     }
   },
+  created () {
+    this.getBreadcrumb()
+  },
   methods: {
     // 面包屑数据处理
     getBreadcrumb () {
+      const matched = this.$route.matched.filter(item => item.name)
+      console.log(matched)
+      // matched = matched.splice(0, 1, [{ path: '/index', meta: { title: '首页' } }])
+      this.breadList = matched.slice(1)
+
+      /*
       let that = this;
       // 由于本项目大部分属于‘一级’页面，所以在设置路由时候，一级页面不设置breadNumber = 1，‘二级’页面以上才设置breadNumber
       let breadNumber = typeof (this.$route.meta.breadNumber) !== 'undefined' ? this.$route.meta.breadNumber : 1;
@@ -50,9 +64,9 @@ export default {
       that.$store.commit('breadListMutations', vuexBreadList);
       // 处理完数据后，将最终的数据更新为新的面包屑数组
       that.breadList = vuexBreadList;
-    }
-
-    //面包屑点击事件
+      */
+    },
+    // 面包屑点击事件
     breadcrumbClick (item) {
       this.$router.push({
         path: item.path

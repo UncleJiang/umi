@@ -18,7 +18,7 @@
       </el-form-item>
     </el-form>
 
-    //修改密码模态框
+    <!-- 修改密码模态框 -->
     <el-dialog title="修改个人密码"
     :visible="modifyPassForm"
     size="tiny"
@@ -34,7 +34,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="infoModify()">确定</el-button>
-          <el-button @click="modifyPassForm = false;cancelmodiT('formt')">取消</el-button>
+          <el-button @click="modifyPassForm = false">取消</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -75,7 +75,7 @@ export default {
     // ...mapMutations(['changeLogin', 'handleUserInfo']),
     init () {
       // this.form = this.$store.getters.getLogInfo
-      let id = getCookie('id')
+      const id = getCookie('id')
       // 个人信息请求
       apiPersonInfo(id).then(res => {
         /*

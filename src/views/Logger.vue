@@ -10,7 +10,7 @@
     <!-- 登录组件，与注册组件的切换由noRegister值控制 -->
     <div v-if="noRegister">
       <el-menu
-        :default-active="1"
+        :default-active="activeIndex"
         class="el-menu-demo"
         mode="horizontal"
         @select="handleSelect">
@@ -43,8 +43,14 @@ export default {
   },
   data () {
     return {
+      activeIndex: '1',
       loginType: 'username',
       noRegister: true
+    }
+  },
+  methods: {
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
     }
   }
 }

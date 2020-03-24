@@ -17,7 +17,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" style="width:100%">登录</el-button>
+        <el-button type="primary" style="width:100%" @click="submitForm">登录</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -34,6 +34,11 @@ export default {
         autoLogin: false,
         type: 2
       }
+    }
+  },
+  methods: {
+    submitForm () {
+      this.$router.push('/index')
     }
   }
 }
