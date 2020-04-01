@@ -2,13 +2,14 @@
  * 请求拦截、响应拦截、错误统一处理
  */
 import axios from 'axios'
-import QS from 'qs'
+// import QS from 'qs'
 import router from '../../router'
 import { delCookie } from '../cookie'
 // import store from '../store/index'
 
 // 默认地址
-axios.defaults.baseURL = 'http://api.123.com/api/v1/'
+axios.defaults.baseURL = 'http://127.0.0.1:8080/api/v1'
+
 // 请求超时时间
 axios.defaults.timeout = 10000
 // post请求头
@@ -44,7 +45,7 @@ axios.interceptors.request.use(
 // 响应拦截器
 axios.interceptors.response.use(
   response => {
-    if (response.code === '200') {
+    if (response.status === 200) {
       return Promise.resolve(response)
     } else {
       return Promise.reject(response)
@@ -52,8 +53,8 @@ axios.interceptors.response.use(
   },
   // 服务器状态码不是200的情况
   error => {
-    if (error.response.code) {
-      switch (error.response.code) {
+    if (error.response.data.code) {
+      switch (error.response.data.code) {
         // 10001: 参数错误； 10005：未知错误
         case '10001':
         case '10005':
@@ -111,7 +112,7 @@ export function get (url, params) {
  */
 export function post (url, params) {
   return new Promise((resolve, reject) => {
-    axios.post(url, QS.stringify(params))
+    axios.post(url, JSON.stringify(params))
       .then(res => {
         resolve(res.data)
       })

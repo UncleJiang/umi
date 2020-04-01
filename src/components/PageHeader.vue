@@ -52,7 +52,7 @@ export default {
         this.$message.success('退出登录成功')
         this.$router.push('/index')
       }).catch(() => {
-        this.$message.success('退出登录失败')
+        this.$message.error('退出登录失败')
       })
       // 清除cookie
       delCookie()

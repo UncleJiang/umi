@@ -83,13 +83,13 @@ export default {
         this.userLInfo = res.data
         this.changeLogin({ Authorization: this.userToken })
         this.handleUserInfo({ userLogInfo: this.userLInfo })
-        alert('成功')
+        this.$message.success('成功')
         */
 
         // this.form = this.userLInfo
         this.form = res.data
       }).catch(error => {
-        alert('错误' + error)
+        this.$message.error('请求错误' + error)
       })
     },
     // 关闭删除密码模态框
@@ -119,8 +119,10 @@ export default {
             this.init()
             this.modifyPassForm = false
           } else {
-            this.$message.error(res.msg)
+            this.$message.error('修改失败' + res.msg)
           }
+        }).catch(error => {
+          this.$message.error('修改失败' + error)
         })
       }
     }

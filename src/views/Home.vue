@@ -4,7 +4,7 @@
     <el-container>
       <el-header style="padding:0"><PageHeader/></el-header>
       <el-container>
-        <el-aside width="200px" :style="{width:collpaseWidth}"><MainMenu/></el-aside>
+        <el-aside :style="{width:collapseWidth}"><MainMenu @mmWidth="getWidth"/></el-aside>
         <el-container class="centercontent">
           <el-main><router-view/></el-main>
           <el-footer>Footer</el-footer>
@@ -23,14 +23,30 @@ export default {
   components: {
     PageHeader,
     MainMenu
+  },
+  data () {
+    return {
+      collapseWidth: ''
+    }
+  },
+  methods: {
+    getWidth (val) {
+      this.collapseWidth = val
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.home {
+  height: 100%;
+}
 .centercontent {
   background: #f7f7f794;
+}
+.el-container {
+  height: 100%;
 }
 .el-main {
   background: #fff;

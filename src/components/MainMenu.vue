@@ -41,6 +41,11 @@
         </template>
       </el-menu-item>
 
+      <el-menu-item index="4" v-model="isCollapse">
+        <i v-show="!isCollapse" class="el-icon-s-fold" @click="isCollapse=true"></i>
+        <i v-show="isCollapse" class="el-icon-s-unfold" @click="isCollapse=false"></i>
+      </el-menu-item>
+
     </el-menu>
   </div>
 </template>
@@ -53,7 +58,9 @@ export default {
   data () {
     return {
       // 初始菜单时用户列表项不显示
-      showUserList: false
+      showUserList: false,
+      // 初始菜单侧边导航栏不折叠
+      isCollapse: false
     }
   },
   mounted () {
@@ -73,13 +80,36 @@ export default {
       history.pushState(null, null, document.URL)
     })
   }
+  /*
+  methods: {
+    pushWidth () {
+      const width = {
+        wh: this.isCollapse ? '50px' : '200px'
+      }
+      if (!this.isCollapse) {
+        this.$emit('mmWidth', '50px')
+      } else {
+        this.$emit('mmWidth', '200px')
+      }
+      // this.$emit('mmWidth', '50px')
+    }
+  }
+  */
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .mainMenu {
-  min-width: 200px;
+  min-width: 50px;
+  max-width: 200px;
   overflow: hidden;
+  height: 100%;
 }
+.el-menu-vertical-demo {
+  height: 100%;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px
+  }
 </style>

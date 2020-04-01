@@ -5,13 +5,13 @@
         <el-input v-model="login1form.name" placeholder="用户名"></el-input>
       </el-form-item>
 
-      <el-form-item prop="pass">
-        <el-input v-model="login1form.pass" placeholder="密码" show-password></el-input>
+      <el-form-item prop="password">
+        <el-input v-model="login1form.password" placeholder="密码" show-password></el-input>
       </el-form-item>
 
       <el-form-item>
         <el-checkbox label="自动登录" v-model="login1form.autoLogin" name="autoL"></el-checkbox>
-        <el-checkbox label="管理员" v-model="login1form.type" @click="login1form.type = 1" name="isAdmin"></el-checkbox>
+        <el-checkbox label="管理员" v-model="login1form.type" @click="login1form.type=1" name="isAdmin"></el-checkbox>
         <el-button id="forgetPwd" type="text">忘记密码</el-button>
       </el-form-item>
 
@@ -57,8 +57,7 @@ export default {
     return {
       login1form: {
         name: '',
-        pass: '',
-        autoLogin: false,
+        password: '',
         type: 2
       },
       // userToken: '',
@@ -67,7 +66,7 @@ export default {
         name: [
           { validator: validateName, trigger: 'blur' }
         ],
-        pass: [
+        password: [
           { validator: validatePass, trigger: 'blur' }
         ]
       }
@@ -81,11 +80,7 @@ export default {
         if (valid) {
           alert('submit!')
           // 登录请求
-          apiLogin1({
-            name: this.login1form.name,
-            password: this.login1form.pass,
-            type: this.login1form.type
-          }).then(res => {
+          apiLogin1(this.login1form).then(res => {
             // 更新token和用户登录信息
             /*
             this.userToken = res.data.token
@@ -95,7 +90,7 @@ export default {
             */
             // 跳转到首页
             this.$router.push('/index')
-            alert('登录成功')
+            alert('登录成功' + res.code)
           }).catch(error => {
             alert('账户或密码错误' + error)
           })

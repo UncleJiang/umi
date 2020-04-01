@@ -104,16 +104,18 @@ export default {
         if (valid) {
           alert('submit!')
           // 注册请求
-          apiRegister({
+          const userR = {
             name: this.formData.name,
             password: this.formData.pass
-          }).then(res => {
-            if (res.code === '200') {
-              this.message.success('注册成功')
-              this.$router.push('/login')
-            } else {
-              this.$message.error('注册失败')
-            }
+          }
+          apiRegister(userR).then(res => {
+            // 有2个bug,1：处理不了res;2：因为login组件和register组件共用一个url,所以跳转不到login组件，暂时先跳index界面
+            alert('trick')
+            // this.message.success('注册成功' + res.code)
+            // Vue.prototype.$router.push('/')
+            this.$router.push('/index')
+          }).catch(error => {
+            this.message.error('注册失败' + error)
           })
         } else {
           console.log('error submit!!')

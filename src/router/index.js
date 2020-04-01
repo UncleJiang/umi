@@ -12,12 +12,10 @@ import MyInfo from '../views/MyInfo.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  /*
   {
     path: '/',
     redirect: '/login'
   },
-  */
   {
     path: '/login',
     name: 'login',

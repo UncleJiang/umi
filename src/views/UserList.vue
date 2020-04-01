@@ -3,13 +3,14 @@
     <BreadCrumb/>
     <!-- 新增和搜索行 -->
     <div>
-      <el-button type="primary" @click="addUser">新增用户</el-button>
       <el-input
-        size="small"
+        style="float:right;width:180px;margin:6px 0;"
         placeholder="请输入内容"
         prefix-icon="el-icon-search"
         v-model="userlistsearch">
       </el-input>
+      <el-button type="primary" @click="addUser"
+        style="float:right;margin:6px 30px;">新增用户</el-button>
     </div>
 
     <!-- 用户列表 -->
@@ -56,7 +57,7 @@
       </el-table-column>
     </el-table>
 
-    //新增用户框
+    <!-- 新增用户框 -->
     <el-dialog title="新增用户信息" :visible="adduserForm" size="tiny" :modal-append-to-body='false' @close='closeDialog'>
       <el-form id="#addsForm" ref="addsForm" :model="addsForm" label-width="80px">
         <el-form-item label="用户名" prop="name">
@@ -67,7 +68,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="userAdd()">确定</el-button>
-          <el-button @click="adduserForm = false;canceladdT('formt')">取消</el-button>
+          <el-button @click="adduserForm=false;">取消</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -123,7 +124,7 @@ export default {
         const userArray = res.data.userlist
         this.userData = userArray
       }).catch(error => {
-        alert('错误' + error)
+        this.$message.error('错误' + error)
       })
     },
     // 关闭模态框
@@ -154,6 +155,8 @@ export default {
           } else {
             this.$message.error(res.msg)
           }
+        }).catch(error => {
+          this.$message.error('新增失败' + error)
         })
       }
     },
@@ -167,11 +170,11 @@ export default {
         apiDelUser(user.id).then(res => {
           this.$message.success('删除成功')
           this.init()
-        }).catch(res => {
-          this.$message.error('删除失败')
-        }).catch(() => {
-          this.$message.info('操作取消')
+        }).catch(error => {
+          this.$message.error('删除失败' + error)
         })
+      }).catch(() => {
+        this.$message('已取消删除')
       })
     }
   }
