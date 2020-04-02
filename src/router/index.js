@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import { getCookie } from '../utils/cookie'
-// import store from '../store'
 
 import Home from '../views/Home.vue'
 import Login from '../views/Logger.vue'

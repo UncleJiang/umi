@@ -78,16 +78,12 @@ export default {
       const id = getCookie('id')
       // 个人信息请求
       apiPersonInfo(id).then(res => {
-        /*
-        this.userToken = res.data.token
-        this.userLInfo = res.data
-        this.changeLogin({ Authorization: this.userToken })
-        this.handleUserInfo({ userLogInfo: this.userLInfo })
-        this.$message.success('成功')
-        */
-
-        // this.form = this.userLInfo
         this.form = res.data
+        if (res.code === '200') {
+          this.form = res.data.user
+        } else {
+          this.$message.error('请求失败: ' + res.msg)
+        }
       }).catch(error => {
         this.$message.error('请求错误' + error)
       })
@@ -118,11 +114,12 @@ export default {
             this.$set(this.modifyForm, {})
             this.init()
             this.modifyPassForm = false
+            this.$message.success('修改密码成功')
           } else {
-            this.$message.error('修改失败' + res.msg)
+            this.$message.error('修改密码失败' + res.msg)
           }
         }).catch(error => {
-          this.$message.error('修改失败' + error)
+          this.$message.error('修改密码失败' + error)
         })
       }
     }

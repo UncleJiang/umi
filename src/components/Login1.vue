@@ -11,7 +11,8 @@
 
       <el-form-item>
         <el-checkbox label="自动登录" v-model="login1form.autoLogin" name="autoL"></el-checkbox>
-        <el-checkbox label="管理员" v-model="login1form.type" @click="login1form.type=1" name="isAdmin"></el-checkbox>
+        <el-checkbox label="管理员" v-model="login1form.type" :true-label="1" :false-label="2" name="isAdmin">
+        </el-checkbox>
         <el-button id="forgetPwd" type="text">忘记密码</el-button>
       </el-form-item>
 
@@ -78,21 +79,19 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          // alert('submit!')
+          // console.log(this.login1form.type)
           // 登录请求
           apiLogin1(this.login1form).then(res => {
-            // 更新token和用户登录信息
-            /*
-            this.userToken = res.data.token
-            this.userLInfo = res.data
-            this.changeLogin({ Authorization: this.userToken })
-            this.handleUserInfo({ userLogInfo: this.userLInfo })
-            */
             // 跳转到首页
-            this.$router.push('/index')
-            alert('登录成功' + res.code)
+            if (res.code === '200') {
+              this.$message.success('登录成功')
+              this.$router.push('/index')
+            } else {
+              this.$message.error('登录失败: ' + res.msg)
+            }
           }).catch(error => {
-            alert('账户或密码错误' + error)
+            this.$message.error('账户或密码错误: ' + error)
           })
         } else {
           console.log('error submit!!')

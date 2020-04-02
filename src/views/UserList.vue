@@ -108,21 +108,24 @@ export default {
           id: 1,
           name: 'yooo',
           password: '233333'
+        },
+        {
+          id: 2,
+          name: 'dfso',
+          password: '2444'
         }
       ]
 
       // 请求方法
       apiUserList().then(res => {
         // 获取数据成功后的操作
-        /*
-        this.userToken = res.data.data.body.token
-
-        // 将token存到vuex中
-        this.changeLogin({ Authorization: this.userToken })
-        alert('成功')
-        */
-        const userArray = res.data.userlist
-        this.userData = userArray
+        if (res.code === '200') {
+          const userArray = res.data
+          this.userData = userArray
+          console.log(res.data)
+        } else {
+          this.$message.error('数据获取失败: ' + res.msg)
+        }
       }).catch(error => {
         this.$message.error('错误' + error)
       })
@@ -152,8 +155,9 @@ export default {
             this.$set(this.addsForm, {})
             this.init()
             this.adduserForm = false
+            this.$message.success('新增成功')
           } else {
-            this.$message.error(res.msg)
+            this.$message.error('新增失败' + res.msg)
           }
         }).catch(error => {
           this.$message.error('新增失败' + error)
@@ -168,8 +172,12 @@ export default {
       this.$confirm('确认删除此用户？', '提示', { type: 'warning' }).then(() => {
         // 请求删除
         apiDelUser(user.id).then(res => {
-          this.$message.success('删除成功')
-          this.init()
+          if (res.code === '200') {
+            this.$message.success('删除成功')
+            this.init()
+          } else {
+            this.$message.error('删除失败: ' + res.msg)
+          }
         }).catch(error => {
           this.$message.error('删除失败' + error)
         })

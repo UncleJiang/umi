@@ -4,16 +4,20 @@
 import axios from 'axios'
 // import QS from 'qs'
 import router from '../../router'
-import { delCookie } from '../cookie'
+// import { delCookie } from '../cookie'
 // import store from '../store/index'
+import Vue from 'vue'
 
 // 默认地址
-axios.defaults.baseURL = 'http://127.0.0.1:8080/api/v1'
+// axios.defaults.baseURL = 'http://127.0.0.1:8080/api/v1'
+axios.defaults.baseURL = '/apis'
 
 // 请求超时时间
 axios.defaults.timeout = 10000
 // post请求头
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
+// axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
+
 // 请求默认带cookie
 axios.defaults.withCredentials = true
 
@@ -53,34 +57,24 @@ axios.interceptors.response.use(
   },
   // 服务器状态码不是200的情况
   error => {
-    if (error.response.data.code) {
-      switch (error.response.data.code) {
-        // 10001: 参数错误； 10005：未知错误
-        case '10001':
-        case '10005':
+    if (error.response.status) {
+      switch (error.response.status) {
+        // 401: 未登录 403:登录过期
+        case 401:
+        case 403:
+          Vue.prototype.$message.error('未登录')
           toLogin()
           break
 
-        // 10002 登录状态失效
-        // 登录过期对用户进行提示、清除本地token、跳转登录页面
-        case '10002':
-          // 用$message代替
-          console.log('登录过期，请重新登录')
-          /*
-          // 清除token
-          localStorage.removeItem('Authorization')
-          store.commit('changeLogin', null)
-          */
-          delCookie()
-          // 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面
-          setTimeout(() => {
-            toLogin()
-          }, 1000)
+        // 404：请求不存在
+        case 404:
+          Vue.prototype.$message.error('网络请求不存在')
           break
 
-          // 其他错误，直接抛出错误提示
+        // 其他错误，直接抛出错误提示
         default:
-          console.log(error.response.msg)
+          Vue.prototype.$message.error('请求错误' + error.response.status)
+          console.log('错误信息：' + error.response.data.message)
       }
       return Promise.reject(error.response)
     }

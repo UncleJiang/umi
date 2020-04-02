@@ -39,18 +39,14 @@ export default {
       console.log(key, keyPath)
     },
     logout () {
-      // 清除localStorage和vuex中的token与用户登录信息
-      /*
-      localStorage.removeItem('Authorization')
-      localStorage.removeItem('userLogInfo')
-      this.$store.commit('changeLogin', null)
-      this.$store.commit('handleUserInfo', null)
-      */
-
       // 退出登录请求
       apiLogout().then(res => {
-        this.$message.success('退出登录成功')
-        this.$router.push('/index')
+        if (res.code === '200') {
+          this.$message.success('退出登录成功')
+          this.$router.push('/login')
+        } else {
+          this.$message.error('退出登录失败: ' + res.msg)
+        }
       }).catch(() => {
         this.$message.error('退出登录失败')
       })
