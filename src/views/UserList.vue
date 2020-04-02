@@ -119,7 +119,7 @@ export default {
       // 请求方法
       apiUserList().then(res => {
         // 获取数据成功后的操作
-        if (res.code === '200') {
+        if (res.code === 200) {
           const userArray = res.data
           this.userData = userArray
           console.log(res.data)
@@ -151,7 +151,7 @@ export default {
           name: name,
           password: pass
         }).then(res => {
-          if (res.code === '200') {
+          if (res.code === 200) {
             this.$set(this.addsForm, {})
             this.init()
             this.adduserForm = false
@@ -172,7 +172,7 @@ export default {
       this.$confirm('确认删除此用户？', '提示', { type: 'warning' }).then(() => {
         // 请求删除
         apiDelUser(user.id).then(res => {
-          if (res.code === '200') {
+          if (res.code === 200) {
             this.$message.success('删除成功')
             this.init()
           } else {

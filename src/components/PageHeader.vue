@@ -41,7 +41,7 @@ export default {
     logout () {
       // 退出登录请求
       apiLogout().then(res => {
-        if (res.code === '200') {
+        if (res.code === 200) {
           this.$message.success('退出登录成功')
           this.$router.push('/login')
         } else {

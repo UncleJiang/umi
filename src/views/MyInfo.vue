@@ -79,7 +79,7 @@ export default {
       // 个人信息请求
       apiPersonInfo(id).then(res => {
         this.form = res.data
-        if (res.code === '200') {
+        if (res.code === 200) {
           this.form = res.data.user
         } else {
           this.$message.error('请求失败: ' + res.msg)
@@ -110,7 +110,7 @@ export default {
           new_password: newPass,
           type: this.form.type
         }).then(res => {
-          if (res.code === '200') {
+          if (res.code === 200) {
             this.$set(this.modifyForm, {})
             this.init()
             this.modifyPassForm = false

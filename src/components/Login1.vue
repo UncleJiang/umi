@@ -84,7 +84,7 @@ export default {
           // 登录请求
           apiLogin1(this.login1form).then(res => {
             // 跳转到首页
-            if (res.code === '200') {
+            if (res.code === 200) {
               this.$message.success('登录成功')
               this.$router.push('/index')
             } else {

@@ -110,7 +110,7 @@ export default {
           }
           apiRegister(userR).then(res => {
             // 1个bug：因为login组件和register组件共用一个url,所以跳转不到login组件，暂时先跳index界面
-            if (res.code === '200') {
+            if (res.code === 200) {
               this.$message.success('注册成功')
               this.$router.push('/index')
             } else {
