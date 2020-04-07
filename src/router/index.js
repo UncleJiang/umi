@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import { getCookie } from '../utils/cookie'
 
 import Home from '../views/Home.vue'
 import Login from '../views/Logger.vue'
@@ -41,6 +40,13 @@ const routes = [
         component: UserList,
         meta: {
           title: '用户列表'
+        },
+        beforeEnter (to, from, next) {
+          if (to.path === '/userlist' && Vue.prototype.GLOBAL.getUser().type === 1) {
+            next()
+          } else {
+            next(false)
+          }
         }
       },
       {
@@ -68,12 +74,12 @@ const router = new VueRouter({
 
 // 路由拦截  判断用户是否登录
 // 判断本地是否存在用户信息是否存在 ？ 进行正常操作 ：重定向到登录页
-/*
 router.beforeEach((to, from, next) => {
+  const userType = Vue.prototype.GLOBAL.getUser().type
   if (to.path === '/login') {
     next()
   } else {
-    if (!getCookie('userCookie')) {
+    if (!userType) {
       next({
         path: '/login',
         query: { redirect: to.fullPath }
@@ -83,5 +89,5 @@ router.beforeEach((to, from, next) => {
     }
   }
 })
-*/
+
 export default router

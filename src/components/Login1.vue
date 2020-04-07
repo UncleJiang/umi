@@ -26,7 +26,6 @@
 <script>
 import { isvalidName, isvalidPass } from '@/utils/validate'
 import { apiLogin1 } from '@/utils/request/api'
-// import { mapMutations } from 'vuex'
 
 export default {
   name: 'Login1',
@@ -61,8 +60,6 @@ export default {
         password: '',
         type: 2
       },
-      // userToken: '',
-      // userLInfo: {},
       rules: {
         name: [
           { validator: validateName, trigger: 'blur' }
@@ -79,13 +76,13 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // alert('submit!')
-          // console.log(this.login1form.type)
           // 登录请求
           apiLogin1(this.login1form).then(res => {
             // 跳转到首页
             if (res.code === 200) {
               this.$message.success('登录成功')
+              this.GLOBAL.setUser(res.data)
+              console.log(this.GLOBAL.getUser())
               this.$router.push('/index')
             } else {
               this.$message.error('登录失败: ' + res.msg)

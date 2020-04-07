@@ -7,7 +7,10 @@ module.exports = {
     proxy: { // 设置代理
       '/apis': {
         target: 'http://localhost:8080/api/v1',
-        changeOrigin: true
+        changeOrigin: true,
+        pathRewrite: {
+          '^/apis': ''
+        }
       }
     }
   }

@@ -2,10 +2,7 @@
  * 请求拦截、响应拦截、错误统一处理
  */
 import axios from 'axios'
-// import QS from 'qs'
 import router from '../../router'
-// import { delCookie } from '../cookie'
-// import store from '../store/index'
 import Vue from 'vue'
 
 // 默认地址

@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import { getCookie } from '@/utils/cookie'
 
 export default {
   name: 'MainMenu',
@@ -65,14 +64,15 @@ export default {
   },
   mounted () {
     // 获取当前用户类型
-    // var type = this.$store.getters.getLogInfo.type
-    var type = getCookie('type')
+    const type = this.GLOBAL.getUser().type
+    console.log(type + 'type')
     if (type === 1) {
       // 用户类型为管理员，用户列表项显示
       this.showUserList = true
     } else {
       // 用户类型为用户，用户列表项不显示
       this.showUserList = false
+      console.log('false')
     }
     history.pushState(null, null, document.URL)
     window.addEventListener('popstate', function () {
@@ -80,21 +80,6 @@ export default {
       history.pushState(null, null, document.URL)
     })
   }
-  /*
-  methods: {
-    pushWidth () {
-      const width = {
-        wh: this.isCollapse ? '50px' : '200px'
-      }
-      if (!this.isCollapse) {
-        this.$emit('mmWidth', '50px')
-      } else {
-        this.$emit('mmWidth', '200px')
-      }
-      // this.$emit('mmWidth', '50px')
-    }
-  }
-  */
 }
 </script>
 

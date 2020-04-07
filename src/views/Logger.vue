@@ -25,7 +25,7 @@
     <!-- 注册组件页 -->
     <Register1 v-else/>
 
-    <p>copyright&nbsp;&nbsp;©&nbsp;April.Jiang</p>
+    <p>copyright&nbsp;&nbsp;©&nbsp;xxxxxxxxx</p>
   </div>
 </template>
 

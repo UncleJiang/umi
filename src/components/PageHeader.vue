@@ -27,14 +27,12 @@
 </template>
 
 <script>
-// import { mapMutations } from 'vuex'
 import { apiLogout } from '@/utils/request/api'
 import { delCookie } from '@/utils/cookie'
 
 export default {
   name: 'PageHeader',
   methods: {
-    // ...mapMutations(['changeLogin', 'handleUserInfo']),
     handleSelect (key, keyPath) {
       console.log(key, keyPath)
     },
@@ -43,6 +41,7 @@ export default {
       apiLogout().then(res => {
         if (res.code === 200) {
           this.$message.success('退出登录成功')
+          this.GLOBAL.clearUser()
           this.$router.push('/login')
         } else {
           this.$message.error('退出登录失败: ' + res.msg)

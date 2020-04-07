@@ -78,7 +78,6 @@
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue'
 import { apiUserList, apiAddUser, apiDelUser } from '@/utils/request/api'
-// import { mapMutations } from 'vuex'
 
 export default {
   name: 'UserList',
@@ -101,7 +100,6 @@ export default {
     // 页面内初始加载时调用
   },
   methods: {
-    // ...mapMutations(['changeLogin']),
     init () {
       this.userData = [
         {
@@ -141,7 +139,6 @@ export default {
     },
     // 模态框内确认新增
     userAdd () {
-      // const userList1 = this.addsForm
       var { name, pass } = this.addsForm
       // 判断数据是否为空
       if (name === '' || pass === '') {

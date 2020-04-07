@@ -43,9 +43,7 @@
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue'
-import { apiPersonInfo, apiModify } from '@/utils/request/api'
-import { getCookie } from '@/utils/cookie'
-// import { mapMutations } from 'vuex'
+import { apiModify } from '@/utils/request/api'
 
 export default {
   name: 'MyInfo',
@@ -55,9 +53,9 @@ export default {
   data () {
     return {
       form: {
-        name: '',
-        id: '',
-        type: 2
+        name: this.GLOBAL.getUser().name,
+        id: this.GLOBAL.getUser().id,
+        type: this.GLOBAL.getUser().type
       },
       modifyPassForm: false,
       modifyForm: {
@@ -68,26 +66,7 @@ export default {
       userLInfo: {}
     }
   },
-  mounted () {
-    this.init()
-  },
   methods: {
-    // ...mapMutations(['changeLogin', 'handleUserInfo']),
-    init () {
-      // this.form = this.$store.getters.getLogInfo
-      const id = getCookie('id')
-      // 个人信息请求
-      apiPersonInfo(id).then(res => {
-        this.form = res.data
-        if (res.code === 200) {
-          this.form = res.data.user
-        } else {
-          this.$message.error('请求失败: ' + res.msg)
-        }
-      }).catch(error => {
-        this.$message.error('请求错误' + error)
-      })
-    },
     // 关闭删除密码模态框
     closeDialog () {
       this.modifyPassForm = false
@@ -104,15 +83,14 @@ export default {
       } else {
         // 修改密码请求
         apiModify({
-          id: this.form.id,
-          name: this.form.name,
+          id: this.GLOBAL.getUser().id,
+          name: this.GLOBAL.getUser().name,
           old_password: oldPass,
           new_password: newPass,
-          type: this.form.type
+          type: this.GLOBAL.getUser().type
         }).then(res => {
           if (res.code === 200) {
             this.$set(this.modifyForm, {})
-            this.init()
             this.modifyPassForm = false
             this.$message.success('修改密码成功')
           } else {
